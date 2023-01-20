@@ -13,4 +13,6 @@ public interface LanguageService {
     void delete(Integer id) throws Exception;
 
     void update(Integer id,CreateLanguageRequest createLanguageRequest);
+
+    GetLanguageResponse getById(Integer id) throws Exception;
 }

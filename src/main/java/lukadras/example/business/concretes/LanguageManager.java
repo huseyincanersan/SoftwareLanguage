@@ -13,7 +13,7 @@ import java.util.List;
 @Service
 public class LanguageManager implements LanguageService {
 
-    private LanguageRepository languageRepository;
+    private final LanguageRepository languageRepository;
 
     public LanguageManager(LanguageRepository languageRepository) {
         this.languageRepository = languageRepository;
@@ -66,7 +66,7 @@ public class LanguageManager implements LanguageService {
     public void delete(Integer id) throws Exception {
         boolean languages = languageRepository.findById(id).isEmpty();
 
-        if (languages!=true)
+        if (!languages)
         {
             languageRepository.deleteById(id);
         }else {
@@ -80,5 +80,21 @@ public class LanguageManager implements LanguageService {
         Language languages = languageRepository.findById(id).get();
         languages.setName(createLanguageRequest.getName());
         languageRepository.save(languages);
+    }
+
+    @Override
+    public GetLanguageResponse getById(Integer id) throws Exception {
+        Boolean check = languageRepository.findById(id).isEmpty();
+
+        if(check){
+            throw new Exception("Id bulunamadi");
+        }else
+        {
+            Language language = languageRepository.findById(id).get();
+            GetLanguageResponse getLanguageResponse = new GetLanguageResponse();
+            getLanguageResponse.setName(language.getName());
+
+            return getLanguageResponse;
+        }
     }
 }

@@ -24,6 +24,11 @@ public class LanguageController {
         return languageService.getAll();
     }
 
+    @GetMapping("/getById/{id}")
+    public String getById(@PathVariable Integer id) throws Exception {
+        return languageService.getById(id).getName();
+    }
+
     @PostMapping("/add")
     public void add(@RequestBody CreateLanguageRequest createLanguageRequest) throws Exception {
         this.languageService.add(createLanguageRequest);
